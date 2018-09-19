@@ -26,5 +26,4 @@ class NicknameViewSet(InfoViewSetContainer):
 class InfoViewSet(InfoViewSetContainer):
     queryset = PersonalInfo.objects.all()
     serializer_class = InfoSerializer
-    http_method_names = ('get',)
 
