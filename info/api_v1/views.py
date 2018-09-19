@@ -4,22 +4,27 @@ from info.api_v1.serializers import InfoSerializer, NicknameSerializer, PhoneNum
 from info.models import PersonalInfo, NickName, PhoneNumber, Email, ExternalLink
 
 
-class EmailViewSet(viewsets.ModelViewSet):
+class InfoViewSetContainer(viewsets.ModelViewSet):
+    http_method_names = ('get',)
+
+
+class EmailViewSet(InfoViewSetContainer):
     queryset = Email.objects.all()
     serializer_class = EmailSerializer
 
 
-class PhoneNumberViewSet(viewsets.ModelViewSet):
+class PhoneNumberViewSet(InfoViewSetContainer):
     queryset = PhoneNumber.objects.all()
     serializer_class = PhoneNumberSerializer
 
 
-class NicknameViewSet(viewsets.ModelViewSet):
+class NicknameViewSet(InfoViewSetContainer):
     queryset = NickName.objects.all()
     serializer_class = NicknameSerializer
 
 
-class InfoViewSet(viewsets.ModelViewSet):
+class InfoViewSet(InfoViewSetContainer):
     queryset = PersonalInfo.objects.all()
     serializer_class = InfoSerializer
+    http_method_names = ('get',)
 
