@@ -36,7 +36,8 @@ class PersonalPhoneNumber(models.Model):
 
 class ExternalLink(models.Model):
     url = models.URLField()
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, blank=True, null=True)
+    user = models.ForeignKey('PersonalInfo', related_name='external_links', on_delete=models.CASCADE)
 
     def __str__(self):
         if not self.title:
