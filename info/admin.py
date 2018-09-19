@@ -1,15 +1,15 @@
 from django.contrib import admin
 
-from info.models import PersonalInfo, PersonalEmail, PersonalPhoneNumber, ExternalLink, NickName
+from info.models import PersonalInfo, Email, PhoneNumber, ExternalLink, NickName
 
 
 class PhoneNumberInline(admin.TabularInline):
-    model = PersonalPhoneNumber
+    model = PhoneNumber
     can_delete = True
 
 
 class EmailInline(admin.TabularInline):
-    model = PersonalEmail
+    model = Email
     can_delete = True
 
 
@@ -40,14 +40,14 @@ class PersonalEmailAdmin(admin.ModelAdmin):
     list_display = ('address',)
 
 
-admin.site.register(PersonalEmail, PersonalEmailAdmin)
+admin.site.register(Email, PersonalEmailAdmin)
 
 
 class PersonalPhoneNumberAdmin(admin.ModelAdmin):
     list_display = ('user', 'type', 'number',)
 
 
-admin.site.register(PersonalPhoneNumber, PersonalPhoneNumberAdmin)
+admin.site.register(PhoneNumber, PersonalPhoneNumberAdmin)
 
 
 class ExternalLinkAdmin(admin.ModelAdmin):

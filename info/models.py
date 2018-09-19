@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class PersonalEmail(models.Model):
+class Email(models.Model):
     address = models.EmailField()
     user = models.ForeignKey('PersonalInfo', related_name='emails', on_delete=models.CASCADE)
 
@@ -9,18 +9,18 @@ class PersonalEmail(models.Model):
         return '%s (%s)' % (self.address, self.user.real_name)
 
 
-class PersonalPhoneNumber(models.Model):
-    HOME = 'Home'
-    WORK = 'Work'
+class PhoneNumber(models.Model):
     MOBILE = 'Mobile'
+    WORK = 'Work'
+    HOME = 'Home'
     FAX = 'Fax'
     BEEPER = 'Beeper'
     OTHER = 'Other'
 
     TYPES = [
-        (0, HOME),
+        (0, MOBILE),
         (1, WORK),
-        (2, MOBILE),
+        (2, HOME),
         (3, FAX),
         (4, BEEPER),
         (5, OTHER)
@@ -28,7 +28,7 @@ class PersonalPhoneNumber(models.Model):
 
     number = models.CharField(max_length=32)
     type = models.SmallIntegerField(choices=TYPES)
-    user = models.ForeignKey('PersonalInfo', related_name='phonenumbers', on_delete=models.CASCADE)
+    user = models.ForeignKey('PersonalInfo', related_name='phone_numbers', on_delete=models.CASCADE)
 
     def __str__(self):
         return '%s for %s' % (self.TYPES[self.type][1], self.user.real_name)
