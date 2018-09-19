@@ -5,12 +5,10 @@ from info.models import PersonalInfo, NickName, ExternalLink, Email, PhoneNumber
 
 class CVSerializer(serializers.HyperlinkedModelSerializer):
     def __init__(self, *args, **kwargs):
-        exclude_fields = kwargs.pop('exclude_fields', None)
+        exclude_fields = kwargs.pop('exclude_fields', [])
         super().__init__(*args, **kwargs)
-        if exclude_fields:
-            for item in exclude_fields:
-                if item in self.fields:
-                    self.fields.pop(item)
+        for item in exclude_fields:
+            self.fields.pop(item, None)
 
 
 class PhoneNumberSerializer(CVSerializer):
