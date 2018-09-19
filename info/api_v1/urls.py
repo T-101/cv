@@ -4,7 +4,7 @@ from rest_framework import routers
 from info.api_v1.views import InfoViewSet, NicknameViewSet, PhoneNumberViewSet, EmailViewSet
 
 router = routers.DefaultRouter()
-router.register('me', InfoViewSet)
+router.register('info', InfoViewSet)
 router.register('nicknames', NicknameViewSet)
 router.register('phonenumbers', PhoneNumberViewSet)
 router.register('emails', EmailViewSet)
