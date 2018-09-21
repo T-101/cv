@@ -12,7 +12,7 @@ class Employer(models.Model):
 
 
 class Employment(models.Model):
-    employer = models.ForeignKey(Employer, on_delete=models.CASCADE)
+    employer = models.ForeignKey(Employer, related_name='employments', on_delete=models.CASCADE)
     date_start = models.DateField()
     date_end = models.DateField(blank=True, null=True)
     internship = models.BooleanField(default=False)
@@ -25,7 +25,7 @@ class Employment(models.Model):
 
 
 class EmploymentTask(models.Model):
-    employment = models.ForeignKey(Employment, on_delete=models.CASCADE)
+    employment = models.ForeignKey(Employment, related_name='employment_tasks', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     sort_index = models.IntegerField(default=0)
     visible = models.BooleanField(default=True)
