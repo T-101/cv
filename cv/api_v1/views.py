@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
 from cv.models import Employer, Employment, EmploymentTask
-from cv.api_v1.serializers import EmployerSerializer, EmploymentTaskSerializer, EmploymentSerializer
+from cv.api_v1.serializers import EmployerSerializer, EmploymentTaskSerializer, EmploymentSerializer, PierSerializer
 
 
 class EmployerViewSetContainer(viewsets.ModelViewSet):
@@ -21,3 +21,8 @@ class EmploymentTaskViewSet(EmployerViewSetContainer):
 class EmploymentViewSet(EmployerViewSetContainer):
     queryset = Employment.objects.all()
     serializer_class = EmploymentSerializer
+
+
+class PierViewSet(EmployerViewSetContainer):
+    queryset = Employer.objects.all()
+    serializer_class = PierSerializer

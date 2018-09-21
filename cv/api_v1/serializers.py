@@ -11,6 +11,7 @@ class EmployerSerializer(serializers.HyperlinkedModelSerializer):
 
 class EmploymentSerializer(serializers.HyperlinkedModelSerializer):
     employer = EmployerSerializer(many=False)
+
     class Meta:
         model = Employment
         fields = '__all__'
@@ -18,7 +19,15 @@ class EmploymentSerializer(serializers.HyperlinkedModelSerializer):
 
 class EmploymentTaskSerializer(serializers.HyperlinkedModelSerializer):
     employment = EmploymentSerializer(many=False)
+
     class Meta:
         model = EmploymentTask
         fields = '__all__'
 
+
+class PierSerializer(serializers.HyperlinkedModelSerializer):
+    employments = EmploymentSerializer(many=True)
+
+    class Meta:
+        model = Employer
+        fields = '__all__'
