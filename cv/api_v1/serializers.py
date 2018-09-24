@@ -25,8 +25,22 @@ class EmploymentTaskSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class PierSerializer(serializers.HyperlinkedModelSerializer):
-    employments = EmploymentSerializer(many=True)
+class EmploymentTaskModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EmploymentTask
+        fields = '__all__'
+
+
+class EmploymentModelSerializer(serializers.ModelSerializer):
+    employment_tasks = EmploymentTaskModelSerializer(many=True)
+
+    class Meta:
+        model = Employment
+        fields = ('employment_tasks', 'date_start', 'date_end', 'internship')
+
+
+class PierSerializer(serializers.ModelSerializer):
+    employments = EmploymentModelSerializer(many=True)
 
     class Meta:
         model = Employer
