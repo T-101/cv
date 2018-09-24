@@ -12,9 +12,22 @@ class Employer(models.Model):
 
 
 class Employment(models.Model):
+
+    YEAR = '%Y'
+    MONTH = '%Y-%m'
+    DAY = '%M-%m-%d'
+
+    CHOICES = [
+        (YEAR, 'Year'),
+        (MONTH, 'Month'),
+        (DAY, 'Day')
+    ]
+
     employer = models.ForeignKey(Employer, related_name='employments', on_delete=models.CASCADE)
     date_start = models.DateField()
+    date_start_display_resolution = models.CharField(max_length=8, choices=CHOICES, default=CHOICES[-1][1])
     date_end = models.DateField(blank=True, null=True)
+    date_end_display_resolution = models.CharField(max_length=8, choices=CHOICES, default=CHOICES[-1][1])
     internship = models.BooleanField(default=False)
     visible = models.BooleanField(default=True)
 
@@ -28,7 +41,6 @@ class EmploymentTask(models.Model):
     employment = models.ForeignKey(Employment, related_name='employment_tasks', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     sort_index = models.IntegerField(default=0)
-    visible = models.BooleanField(default=True)
 
     def __str__(self):
         if self.employment.date_end:
