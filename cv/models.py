@@ -25,9 +25,9 @@ class Employment(models.Model):
 
     employer = models.ForeignKey(Employer, related_name='employments', on_delete=models.CASCADE)
     date_start = models.DateField()
-    date_start_display_resolution = models.CharField(max_length=8, choices=CHOICES, default=CHOICES[-1][1])
+    date_start_display_resolution = models.CharField(max_length=8, choices=CHOICES, default=DAY)
     date_end = models.DateField(blank=True, null=True)
-    date_end_display_resolution = models.CharField(max_length=8, choices=CHOICES, default=CHOICES[-1][1])
+    date_end_display_resolution = models.CharField(max_length=8, choices=CHOICES, default=DAY)
     internship = models.BooleanField(default=False)
     visible = models.BooleanField(default=True)
 
