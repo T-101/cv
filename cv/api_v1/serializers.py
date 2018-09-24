@@ -28,11 +28,19 @@ class EmploymentTaskSerializer(serializers.HyperlinkedModelSerializer):
 class EmploymentTaskModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmploymentTask
-        fields = '__all__'
+        fields = ('id', 'name', 'sort_index')
 
 
 class EmploymentModelSerializer(serializers.ModelSerializer):
     employment_tasks = EmploymentTaskModelSerializer(many=True)
+    date_start = serializers.SerializerMethodField(method_name='format_date_start')
+    date_end = serializers.SerializerMethodField(method_name='format_date_end')
+
+    def format_date_start(self, obj):
+        return obj.date_start.strftime(obj.date_start_display_resolution)
+
+    def format_date_end(self, obj):
+        return obj.date_end.strftime(obj.date_end_display_resolution)
 
     class Meta:
         model = Employment
@@ -44,4 +52,4 @@ class PierSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Employer
-        fields = '__all__'
+        fields = ('id', 'employments', 'name', 'description', 'url')
