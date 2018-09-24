@@ -9,7 +9,7 @@ class EmployerViewSetContainer(viewsets.ModelViewSet):
 
 
 class EmployerViewSet(EmployerViewSetContainer):
-    queryset = Employer.objects.all()
+    queryset = Employer.objects.filter(visible=False)
     serializer_class = EmployerSerializer
 
 
@@ -24,5 +24,7 @@ class EmploymentViewSet(EmployerViewSetContainer):
 
 
 class PierViewSet(EmployerViewSetContainer):
-    queryset = Employer.objects.all()
+    queryset = Employer.objects\
+        .filter(visible=True)\
+        .order_by('-employments__date_start')
     serializer_class = PierSerializer
