@@ -10,6 +10,5 @@ router.register('phonenumbers', PhoneNumberViewSet)
 router.register('emails', EmailViewSet)
 
 urlpatterns = [
-    path('api/v1/', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('', include(router.urls)),
 ]
