@@ -40,7 +40,8 @@ class EmploymentModelSerializer(serializers.ModelSerializer):
         return obj.date_start.strftime(obj.date_start_display_resolution)
 
     def format_date_end(self, obj):
-        return obj.date_end.strftime(obj.date_end_display_resolution)
+        if obj.date_end:
+            return obj.date_end.strftime(obj.date_end_display_resolution)
 
     class Meta:
         model = Employment
