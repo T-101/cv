@@ -44,7 +44,7 @@ class EmploymentModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Employment
-        fields = ('employment_tasks', 'date_start', 'date_end', 'internship')
+        fields = ('employment_tasks', 'date_start', 'date_end', 'employment_status')
 
 
 class PierSerializer(serializers.ModelSerializer):
