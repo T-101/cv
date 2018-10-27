@@ -23,12 +23,25 @@ class Employment(models.Model):
         (DAY, 'Day')
     ]
 
+    NORMAL = ''
+    INTERNSHIP = 'Internship'
+    FREELANCER = 'Freelancer'
+    SELF_EMPLOYED = 'Self employed'
+
+    STATUS_CHOICES = [
+        (NORMAL, 'Normal'),
+        (INTERNSHIP, 'Internship'),
+        (FREELANCER, 'Freelancer'),
+        (SELF_EMPLOYED, 'Self Employed')
+    ]
+
     employer = models.ForeignKey(Employer, related_name='employments', on_delete=models.CASCADE)
     date_start = models.DateField()
     date_start_display_resolution = models.CharField(max_length=8, choices=CHOICES, default=DAY)
     date_end = models.DateField(blank=True, null=True)
     date_end_display_resolution = models.CharField(max_length=8, choices=CHOICES, default=DAY)
-    internship = models.BooleanField(default=False)
+    # internship = models.BooleanField(default=False)
+    employment_status = models.CharField(max_length=16, choices=STATUS_CHOICES, default=NORMAL)
     visible = models.BooleanField(default=True)
 
     def __str__(self):

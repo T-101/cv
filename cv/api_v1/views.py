@@ -1,3 +1,4 @@
+from django.db.models import Case, When
 from rest_framework import viewsets
 
 from cv.models import Employer, Employment, EmploymentTask
@@ -24,7 +25,14 @@ class EmploymentViewSet(EmployerViewSetContainer):
 
 
 class PierViewSet(EmployerViewSetContainer):
-    queryset = Employer.objects\
-        .filter(visible=True)\
-        .order_by('-employments__date_start')
+
+    def get_queryset(self):
+        # Get Employer objects, sorted by foreign key
+        ev = Employer.objects.order_by('-employments__date_start').values_list('pk')
+        # Remove dupes while maintaining order
+        l = [x[0] for x in list(dict.fromkeys(ev))]
+
+        preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(l)])
+        return Employer.objects.filter(pk__in=l).order_by(preserved)
+
     serializer_class = PierSerializer

@@ -13,8 +13,8 @@ admin.site.register(Employer, EmployerAdmin)
 
 
 class EmploymentAdmin(admin.ModelAdmin):
-    list_display = ('employer', 'date_start', 'date_end', 'internship', 'visible')
-    list_filter = ('visible', 'internship', 'employer__name')
+    list_display = ('employer', 'date_start', 'date_end', 'visible')
+    list_filter = ('visible', 'employer__name')
 
 
 admin.site.register(Employment, EmploymentAdmin)
