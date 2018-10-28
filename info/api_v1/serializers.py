@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from info.models import PersonalInfo, NickName, ExternalLink, Email, PhoneNumber
+from info.models import PersonalInfo, NickName, ExternalLink, Email, PhoneNumber, Detail, DetailItem
 
 
 class CVSerializer(serializers.HyperlinkedModelSerializer):
@@ -43,4 +43,18 @@ class InfoSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = PersonalInfo
+        fields = '__all__'
+
+
+class DetailItemSerializer(CVSerializer):
+    class Meta:
+        model = DetailItem
+        fields = '__all__'
+
+
+class DetailSerializer(serializers.HyperlinkedModelSerializer):
+    items = DetailItemSerializer(many=True, exclude_fields=['url', 'detail'])
+
+    class Meta:
+        model = Detail
         fields = '__all__'

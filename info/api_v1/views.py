@@ -4,8 +4,8 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
 from info.api_v1.serializers import InfoSerializer, NicknameSerializer, PhoneNumberSerializer, EmailSerializer, \
-    ExternalLinkSerializer
-from info.models import PersonalInfo, NickName, PhoneNumber, Email, ExternalLink
+    ExternalLinkSerializer, DetailSerializer, DetailItemSerializer
+from info.models import PersonalInfo, NickName, PhoneNumber, Email, ExternalLink, Detail, DetailItem
 
 
 class InfoViewSetContainer(viewsets.ModelViewSet):
@@ -43,3 +43,13 @@ class InfoViewSet(InfoViewSetContainer):
         self.object = get_object_or_404(self.queryset.model, pk=me.pk)
         serializer = self.get_serializer(self.object)
         return Response(serializer.data)
+
+
+class DetailItemViewSet(InfoViewSetContainer):
+    queryset = DetailItem.objects.order_by('sort_order')
+    serializer_class = DetailItemSerializer
+
+
+class DetailViewSet(InfoViewSetContainer):
+    queryset = Detail.objects.order_by('sort_order')
+    serializer_class = DetailSerializer

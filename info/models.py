@@ -35,7 +35,6 @@ class PhoneNumber(models.Model):
 
 
 class ExternalLink(models.Model):
-
     OTHER = 'external-link'
     SOUNDCLOUD = 'soundcloud'
     LINKEDIN = 'linkedin-square'
@@ -67,6 +66,24 @@ class NickName(models.Model):
 
 class PersonalInfo(models.Model):
     real_name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
 
     def __str__(self):
         return self.real_name
+
+
+class Detail(models.Model):
+    name = models.CharField(max_length=64)
+    sort_order = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
+
+
+class DetailItem(models.Model):
+    detail = models.ForeignKey(Detail, on_delete=models.CASCADE, related_name='items')
+    text = models.TextField()
+    sort_order = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.detail.name
