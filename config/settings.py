@@ -67,7 +67,9 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'frontend/build')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,6 +127,9 @@ USE_TZ = True
 
 STATIC_ROOT = env('STATIC_ROOT')
 STATIC_URL = env('STATIC_URL')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend/build/static'),
+]
 
 # CORS_ORIGIN_ALLOW_ALL = True
 
