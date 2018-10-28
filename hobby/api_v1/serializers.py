@@ -10,7 +10,7 @@ class HobbyItemSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class HobbySerializer(serializers.HyperlinkedModelSerializer):
-    hobbyitems = HobbyItemSerializer(many=True)
+    items = HobbyItemSerializer(many=True)
 
     class Meta:
         model = Hobby
