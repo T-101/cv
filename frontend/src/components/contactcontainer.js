@@ -31,7 +31,7 @@ class TableRow extends React.Component {
         return (
             <tr>
                 <td>
-                    <a href={href}><i className={faClass}>&nbsp;</i>&nbsp;{title}</a>&nbsp;{type}
+                    <a href={href}><i className={faClass} />&nbsp;{title}</a>&nbsp;{type}
                 </td>
             </tr>
         )
@@ -48,7 +48,7 @@ export default class ContactContainer extends React.Component {
 
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         const url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/info/me/';
         this.setState({data: await getData(url)});
         const routes = this.props.routes;

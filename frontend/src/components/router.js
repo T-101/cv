@@ -39,7 +39,7 @@ export default class CVRouter extends React.Component {
         };
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         const url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/info/me/';
         let json = await getData(url);
         this.setState({realname: json.real_name});

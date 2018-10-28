@@ -14,7 +14,7 @@ export default class HobbyContainer extends React.Component {
 
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
         const url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/hobby/hobbies/';
         this.setState({data: await getData(url)});
         const routes = this.props.routes;
