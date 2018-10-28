@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'corsheaders',
     'cv',
-    'info'
+    'info',
+    'hobby'
 ]
 
 MIDDLEWARE = [
