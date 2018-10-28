@@ -6,7 +6,7 @@ import {getData} from './functions';
 class TableRow extends React.Component {
     render() {
 
-        let href = 'mailto:' + this.props.value.url;
+        let href = this.props.value.url;
         let faClass = 'fa fa-2x fa-fw fa-' + this.props.value.url_type;
         let title = this.props.value.title;
         let type = '';
