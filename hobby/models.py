@@ -11,7 +11,7 @@ class Hobby(models.Model):
 
 
 class HobbyItem(models.Model):
-    hobby = models.ForeignKey(Hobby, on_delete=models.CASCADE, related_name='hobbyitems')
+    hobby = models.ForeignKey(Hobby, on_delete=models.CASCADE, related_name='items')
     text = models.TextField()
     sort_order = models.IntegerField(default=0)
 
