@@ -7,13 +7,17 @@ export default class PartyTableContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            image: ''
         };
     }
 
-    async componentDidMount() {
-        const url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/info/me/';
+    async componentWillMount() {
+        let url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/info/me/';
         this.setState({data: await getData(url)});
+        url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/pictures/random/';
+        const random = await getData(url);
+        this.setState({image: random.image});
     }
 
     render() {
@@ -55,7 +59,7 @@ export default class PartyTableContainer extends React.Component {
                         <div className="col-sm">
                             <div className="card border-secondary mb-3">
                                 <div className="card-body">
-                                    <img className="img-fluid" src="ana.jpg" alt="Antti Rummukainen"></img>
+                                    <img className="img-fluid" src={this.state.image} alt="Antti Rummukainen" />
                                 </div>
                             </div>
                         </div>

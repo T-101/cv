@@ -15,11 +15,9 @@ export default class MeContainer extends React.Component {
 
     }
 
-    async componentDidMount() {
-
+    async componentWillMount() {
         const url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/details/';
         this.setState({data: await getData(url)});
-
         const routes = this.props.routes;
         for (let route in routes) {
             if (routes.hasOwnProperty(route)) {
