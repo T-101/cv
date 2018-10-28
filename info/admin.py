@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from info.models import PersonalInfo, Email, PhoneNumber, ExternalLink, NickName, Detail, DetailItem
+from info.models import PersonalInfo, Email, PhoneNumber, ExternalLink, NickName, Detail, DetailItem, Picture
 
 
 class PhoneNumberInline(admin.TabularInline):
@@ -83,3 +83,10 @@ class DetailItemAdmin(admin.ModelAdmin):
 
 
 admin.site.register(DetailItem, DetailItemAdmin)
+
+
+class PictureAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'image')
+
+
+admin.site.register(Picture, PictureAdmin)
