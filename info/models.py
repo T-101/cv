@@ -18,24 +18,36 @@ class PhoneNumber(models.Model):
     OTHER = 'Other'
 
     TYPES = [
-        (0, MOBILE),
-        (1, WORK),
-        (2, HOME),
-        (3, FAX),
-        (4, BEEPER),
-        (5, OTHER)
+        (MOBILE, 'Mobile'),
+        (WORK, 'Work'),
+        (HOME, 'Home'),
+        (FAX, 'Fax'),
+        (BEEPER, 'Beeper'),
+        (OTHER, 'Other')
     ]
 
     number = models.CharField(max_length=32)
-    type = models.SmallIntegerField(choices=TYPES)
+    type = models.CharField(choices=TYPES, default=MOBILE, max_length=8)
     user = models.ForeignKey('PersonalInfo', related_name='phone_numbers', on_delete=models.CASCADE)
 
     def __str__(self):
-        return '%s for %s' % (self.TYPES[self.type][1], self.user.real_name)
+        return '%s for %s' % (self.type, self.user.real_name)
 
 
 class ExternalLink(models.Model):
+
+    OTHER = 'external-link'
+    SOUNDCLOUD = 'soundcloud'
+    LINKEDIN = 'linkedin-square'
+
+    CHOICES = [
+        (OTHER, 'Other'),
+        (SOUNDCLOUD, 'Soundcloud'),
+        (LINKEDIN, 'LinkedIn'),
+    ]
+
     url = models.URLField()
+    url_type = models.CharField(max_length=16, choices=CHOICES, default=OTHER)
     title = models.CharField(max_length=255, blank=True, null=True)
     user = models.ForeignKey('PersonalInfo', related_name='external_links', on_delete=models.CASCADE)
 
