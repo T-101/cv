@@ -1,4 +1,8 @@
+import os
+
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 
 class Email(models.Model):
@@ -87,3 +91,17 @@ class DetailItem(models.Model):
 
     def __str__(self):
         return self.detail.name
+
+
+class Picture(models.Model):
+    user = models.ForeignKey('PersonalInfo', on_delete=models.CASCADE, related_name='pictures')
+    image = models.ImageField()
+
+    def __str__(self):
+        return self.user.real_name
+
+
+@receiver(post_delete, sender=Picture)
+def remove_image_file(sender, instance, **kwargs):
+    if os.path.exists(instance.image.file.name):
+        os.remove(instance.image.file.name)

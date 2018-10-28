@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from info.models import PersonalInfo, NickName, ExternalLink, Email, PhoneNumber, Detail, DetailItem
+from info.models import PersonalInfo, NickName, ExternalLink, Email, PhoneNumber, Detail, DetailItem, Picture
 
 
 class CVSerializer(serializers.HyperlinkedModelSerializer):
@@ -58,3 +58,10 @@ class DetailSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Detail
         fields = '__all__'
+
+
+class PictureSerializer(CVSerializer):
+
+    class Meta:
+        model = Picture
+        fields = ['image']
