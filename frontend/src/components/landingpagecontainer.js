@@ -16,8 +16,12 @@ export default class PartyTableContainer extends React.Component {
         let url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/info/me/';
         this.setState({data: await getData(url)});
         url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/pictures/random/';
-        const random = await getData(url);
-        this.setState({image: random.image});
+        const image = await getData(url);
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            this.setState({image: image.image});
+        } else {
+            this.setState({image: image.src});
+        }
     }
 
     render() {
