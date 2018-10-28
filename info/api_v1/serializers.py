@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.fields import ReadOnlyField
 
 from info.models import PersonalInfo, NickName, ExternalLink, Email, PhoneNumber, Detail, DetailItem, Picture
 
@@ -62,6 +63,8 @@ class DetailSerializer(serializers.HyperlinkedModelSerializer):
 
 class PictureSerializer(CVSerializer):
 
+    src = ReadOnlyField(source="image.url")
+
     class Meta:
         model = Picture
-        fields = ['image']
+        fields = ['src', 'image']
