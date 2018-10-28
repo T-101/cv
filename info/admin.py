@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from info.models import PersonalInfo, Email, PhoneNumber, ExternalLink, NickName
+from info.models import PersonalInfo, Email, PhoneNumber, ExternalLink, NickName, Detail, DetailItem
 
 
 class PhoneNumberInline(admin.TabularInline):
@@ -24,11 +24,12 @@ class NickNameInline(admin.TabularInline):
 
 
 class PersonalInfoAdmin(admin.ModelAdmin):
-    list_display = ('real_name', 'get_nicks')
+    list_display = ('real_name', 'title', 'get_nicks')
     inlines = (PhoneNumberInline, EmailInline, LinkInline, NickNameInline)
 
     def get_nicks(self, obj):
         return ', '.join([x.name for x in obj.nick_names.all()])
+
     get_nicks.short_description = 'Nick names'
     get_nicks.admin_order_field = 'nick_names__name'
 
@@ -62,3 +63,23 @@ class NickNameAdmin(admin.ModelAdmin):
 
 
 admin.site.register(NickName, NickNameAdmin)
+
+
+class DetailAdmin(admin.ModelAdmin):
+    list_display = ('name', 'sort_order')
+    list_editable = ('sort_order',)
+    search_fields = ('name',)
+    list_filter = ('name',)
+
+
+admin.site.register(Detail, DetailAdmin)
+
+
+class DetailItemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'detail', 'text', 'sort_order')
+    search_fields = ('text',)
+    list_editable = ('sort_order',)
+    list_filter = ('detail__name',)
+
+
+admin.site.register(DetailItem, DetailItemAdmin)
