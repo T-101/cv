@@ -10,7 +10,7 @@ class EmployerViewSetContainer(viewsets.ModelViewSet):
 
 
 class EmployerViewSet(EmployerViewSetContainer):
-    queryset = Employer.objects.filter(visible=False)
+    queryset = Employer.objects.filter(visible=True)
     serializer_class = EmployerSerializer
 
 
@@ -20,7 +20,7 @@ class EmploymentTaskViewSet(EmployerViewSetContainer):
 
 
 class EmploymentViewSet(EmployerViewSetContainer):
-    queryset = Employment.objects.all()
+    queryset = Employment.objects.filter(visible=True)
     serializer_class = EmploymentSerializer
 
 
@@ -28,7 +28,7 @@ class PierViewSet(EmployerViewSetContainer):
 
     def get_queryset(self):
         # Get Employer objects, sorted by foreign key
-        ev = Employer.objects.order_by('-employments__date_start').values_list('pk')
+        ev = Employer.objects.filter(visible=True).order_by('-employments__date_start').values_list('pk')
         # Remove dupes while maintaining order
         l = [x[0] for x in list(dict.fromkeys(ev))]
 
