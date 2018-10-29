@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./navbar";
-import {getData} from './functions';
+import {getData, getUrl} from './functions';
 
 
 export default class PartyTableContainer extends React.Component {
@@ -13,10 +13,10 @@ export default class PartyTableContainer extends React.Component {
     }
 
     async componentWillMount() {
-        let url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/info/me/';
-        this.setState({data: await getData(url)});
-        url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/pictures/random/';
-        const image = await getData(url);
+        // let url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/info/me/';
+        this.setState({data: await getData(getUrl('me'))});
+        // url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/pictures/random/';
+        const image = await getData(getUrl('random'));
         if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
             this.setState({image: image.image});
         } else {
