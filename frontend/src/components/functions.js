@@ -20,8 +20,15 @@ export function getUrl(endPoint) {
         case 'random': {
             return baseUrl + '/api/v1/info/pictures/random/'
         }
-        default: {
-
+        case 'hobbies': {
+            return baseUrl + '/api/v1/hobby/hobbies/'
         }
+        case 'details': {
+            return baseUrl + '/api/v1/info/details/'
+        }
+        case 'work': {
+            return baseUrl + '/api/v1/cv/pier/'
+        }
+        default:
     }
 }

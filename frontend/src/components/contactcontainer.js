@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./navbar";
-import {getData} from './functions';
+import {getData, getUrl} from './functions';
 
 
 class TableRow extends React.Component {
@@ -49,8 +49,7 @@ export default class ContactContainer extends React.Component {
     }
 
     async componentWillMount() {
-        const url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/info/me/';
-        this.setState({data: await getData(url)});
+        this.setState({data: await getData(getUrl('me'))});
         const routes = this.props.routes;
         for (let route in routes) {
             if (routes.hasOwnProperty(route)) {

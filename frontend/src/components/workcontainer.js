@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./navbar";
 import DataRow from "./datarowcontainer";
-import {getData} from './functions';
+import {getData, getUrl} from './functions';
 
 
 export default class WorkContainer extends React.Component {
@@ -15,8 +15,7 @@ export default class WorkContainer extends React.Component {
     }
 
     async componentWillMount() {
-        const url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/cv/pier/';
-        this.setState({data: await getData(url)});
+        this.setState({data: await getData(getUrl('work'))});
         const routes = this.props.routes;
         for (let route in routes) {
             if (routes.hasOwnProperty(route)) {
