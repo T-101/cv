@@ -30,9 +30,14 @@ class PierViewSet(EmployerViewSetContainer):
         # Get Employer objects, sorted by foreign key
         ev = Employer.objects.filter(visible=True).order_by('-employments__date_start').values_list('pk')
         # Remove dupes while maintaining order
-        l = [x[0] for x in list(dict.fromkeys(ev))]
+        """
+        The following commented command gives wrong order in Python 3.5.3, but a correct order in 3.6.1
+        """
+        # l = [x[0] for x in list(dict.fromkeys(ev))]
+        seen = set()
+        unique_ids = [x[0] for x in ev if not (x[0] in seen or seen.add(x[0]))]
 
-        preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(l)])
-        return Employer.objects.filter(pk__in=l).order_by(preserved)
+        preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(unique_ids)])
+        return Employer.objects.filter(pk__in=unique_ids).order_by(preserved)
 
     serializer_class = PierSerializer
