@@ -5,7 +5,7 @@ import WorkContainer from "./workcontainer";
 import MeContainer from "./mecontainer";
 import HobbyContainer from "./hobbycontainer";
 import ContactContainer from "./contactcontainer";
-import {getData} from './functions';
+import {getData, getUrl} from './functions';
 
 
 export default class CVRouter extends React.Component {
@@ -40,8 +40,7 @@ export default class CVRouter extends React.Component {
     }
 
     async componentWillMount() {
-        const url = window.location.protocol + '//' + window.location.hostname + ':8000/api/v1/info/info/me/';
-        let json = await getData(url);
+        let json = await getData(getUrl('me'));
         this.setState({realname: json.real_name});
     }
 
