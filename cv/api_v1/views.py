@@ -15,7 +15,7 @@ class EmployerViewSet(EmployerViewSetContainer):
 
 
 class EmploymentTaskViewSet(EmployerViewSetContainer):
-    queryset = EmploymentTask.objects.all()
+    queryset = EmploymentTask.objects.order_by('sort_index')
     serializer_class = EmploymentTaskSerializer
 
 
