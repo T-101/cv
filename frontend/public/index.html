@@ -4,11 +4,12 @@
     <meta http-equiv="Content-Security-Policy" content="
     default-src 'none';
     script-src 'self' https://code.jquery.com/ https://cdnjs.cloudflare.com/ajax/libs/popper.js/ https://stackpath.bootstrapcdn.com/bootstrap/;
-    connect-src 'self' http://localhost:8000/;
+    connect-src 'self' localhost:8000 127.0.0.1:8000 https://cv.didnot.win:8000/;
     style-src 'self' 'unsafe-inline' https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/ https://fonts.googleapis.com/css;
     font-src  https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/ https://fonts.gstatic.com/;
-    img-src 'self';
+    img-src 'self' localhost:8000/ 127.0.0.1:8000/ https://cv.didnot.win:8000/;
     ">
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
