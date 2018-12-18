@@ -41,7 +41,7 @@ class Employment(models.Model):
     date_end = models.DateField(blank=True, null=True)
     date_end_display_resolution = models.CharField(max_length=8, choices=CHOICES, default=DAY)
     # internship = models.BooleanField(default=False)
-    employment_status = models.CharField(max_length=16, choices=STATUS_CHOICES, default=NORMAL)
+    employment_status = models.CharField(max_length=16, choices=STATUS_CHOICES, default=NORMAL, blank=True)
     visible = models.BooleanField(default=True)
 
     def __str__(self):
