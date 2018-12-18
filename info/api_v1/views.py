@@ -1,3 +1,4 @@
+from django.core.exceptions import ImproperlyConfigured
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
@@ -39,6 +40,8 @@ class InfoViewSet(InfoViewSetContainer):
     @action(detail=False)
     def me(self, *args, **kwargs):
         me = self.queryset.first()
+        if not me:
+            raise ImproperlyConfigured('Please add personal infoes to database before using this CV')
 
         self.object = get_object_or_404(self.queryset.model, pk=me.pk)
         serializer = self.get_serializer(self.object)
