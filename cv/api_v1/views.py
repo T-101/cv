@@ -28,7 +28,7 @@ class PierViewSet(EmployerViewSetContainer):
 
     def get_queryset(self):
         # Get Employer objects, sorted by foreign key
-        ev = Employer.objects.filter(visible=True).order_by('-employments__date_start').values_list('pk')
+        ev = Employer.objects.filter(visible=True, employments__visible=True).order_by('-employments__date_start').values_list('pk')
         # Remove dupes while maintaining order
         """
         The following commented command gives wrong order in Python 3.5.3, but a correct order in 3.6.1
