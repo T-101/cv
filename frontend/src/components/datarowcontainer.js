@@ -33,9 +33,16 @@ class DataList extends React.Component {
 export default class DataRow extends React.Component {
     render() {
 
+        function HeaderUrl(item) {
+            if (item.url) {
+                return (<a href={item.url}><small><i className="fa fa-external-link" aria-hidden="true" /></small></a>)
+            }
+
+        }
+
         function HeaderLine(type, item) {
             if (item && type === "header") {
-                return (<h5 className="card-title">{item.name}</h5>)
+                return (<h5 className="card-title">{item.name} {HeaderUrl(item)}</h5>)
             } else if (item && type === "subheader") {
                 return (
                     <div>
