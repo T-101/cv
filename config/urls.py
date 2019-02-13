@@ -24,6 +24,6 @@ urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [
     path('api/v1/info/', include('info.api_v1.urls')),
     path('api/v1/cv/', include('cv.api_v1.urls')),
     path('api/v1/hobby/', include('hobby.api_v1.urls')),
-    re_path('.*', TemplateView.as_view(template_name='index.html')),
+    re_path('.*', TemplateView.as_view(template_name='index.html', extra_context={'debug': settings.DEBUG})),
 ]
 
