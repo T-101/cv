@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  app:
+    env_file:
+      - .env
+    build: .
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:${CONTAINER_PORT}"
+    container_name: cv_backend
+    volumes:
+      - ./app:/code/app
+    ports:
+      - "${CONTAINER_PORT}:${CONTAINER_PORT}"
