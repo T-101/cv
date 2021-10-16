@@ -4,6 +4,9 @@ import {DataContext} from "../contexts/DataContext";
 
 export default function LandingPageContainer() {
     const {data} = React.useContext(DataContext)
+    if (data) {
+        document.title = "CV | Me | " + data.first_name + " " + data.last_name
+    }
     return (
         <Card style={{marginTop: "30px"}}>
             <Card.Header>About Me</Card.Header>

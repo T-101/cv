@@ -15,6 +15,9 @@ export default function LandingPageContainer() {
         width: "1.5em",
         fontSize: "2.5em"
     }
+    if (data) {
+        document.title = "CV | Contact | " + data.first_name + " " + data.last_name
+    }
     return (
         <Row xs={1} lg={2}>
             <Col style={{marginTop: "30px"}}>
