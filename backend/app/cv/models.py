@@ -196,5 +196,7 @@ class ExternalLink(models.Model):
 
 @receiver(post_delete, sender=Picture)
 def remove_image_file(sender, instance, **kwargs):
-    if os.path.exists(instance.picture.file.name):
+    try:
         os.remove(instance.picture.file.name)
+    except FileNotFoundError:
+        pass
