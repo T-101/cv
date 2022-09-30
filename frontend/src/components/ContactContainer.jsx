@@ -66,9 +66,9 @@ export default function LandingPageContainer() {
                                     Backend
                                 </td>
                                 <td>
-                                    <a href="https://docs.python.org/3.9/">Python 3.9.7</a><br/>
-                                    <a href="https://docs.djangoproject.com/en/3.2/">Django 3.2.7</a><br/>
-                                    <a href="https://www.django-rest-framework.org/">Django Rest Framework 3.12.4</a>
+                                    <a href="https://docs.python.org/3.9/">Python 3.10.0</a><br/>
+                                    <a href="https://docs.djangoproject.com/en/3.2/">Django 4.1.1</a><br/>
+                                    <a href="https://www.django-rest-framework.org/">Django Rest Framework 3.14.0</a>
                                 </td>
                             </tr>
                             <tr>
@@ -101,8 +101,8 @@ export default function LandingPageContainer() {
                                     Deployment
                                 </td>
                                 <td>
-                                    <a href="https://www.docker.com/">Docker 20.10.8</a><br/>
-                                    <a href="https://pypi.org/project/gunicorn/">gunicorn 19.9.0</a><br/>
+                                    <a href="https://www.docker.com/">Docker 20.10.5</a><br/>
+                                    <a href="https://pypi.org/project/gunicorn/">gunicorn 20.1.0</a><br/>
                                     <a href="https://nginx.org/">nginx 1.18.0</a>
                                 </td>
                             </tr>
