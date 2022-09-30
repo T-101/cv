@@ -25,7 +25,13 @@ class SingletonModel(models.Model):
 
     @classmethod
     def load(cls):
-        obj, created = cls.objects.get_or_create(pk=1)
+        prefetch_items = [
+            "detail_categories",
+            "detail_categories__detail_items",
+            "hobbies",
+            "hobbies__hobby_items",
+        ]
+        obj, created = cls.objects.prefetch_related(*prefetch_items).get_or_create(pk=1)
         return obj
 
 
