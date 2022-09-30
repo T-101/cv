@@ -111,7 +111,8 @@ class PersonalInfoSerializer(ModelSerializer):
 
     def get_employers(self, obj):
         # Annotation to remove duplicate row when ordering via foreign key
-        queryset = obj.employers.annotate(date_order=Max("employments__date_start")).order_by("-date_order")
+        queryset = obj.employers.prefetch_related("employments", "employments__employment_tasks") \
+            .annotate(date_order=Max("employments__date_start")).order_by("-date_order")
         serializer = EmployerSerializer(queryset, many=True)
         return serializer.data
 
