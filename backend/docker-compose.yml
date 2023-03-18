@@ -14,8 +14,7 @@ services:
       - "127.0.0.1:${CONTAINER_PORT}:${CONTAINER_PORT}"
     restart: always
     networks:
-      cv_backend:
-
+      - cv_backend
 
 networks:
   cv_backend:
