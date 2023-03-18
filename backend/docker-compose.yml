@@ -1,13 +1,22 @@
-version: '3'
+version: '3.5'
 
 services:
   app:
+    container_name: cv_backend
     env_file:
       - .env
     build: .
-    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:${CONTAINER_PORT}"
-    container_name: cv_backend
+    # command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:${CONTAINER_PORT}"
+    # command: bash -c "gunicorn config.wsgi -w ${UWSGI_WORKERS} -b 0.0.0.0:${CONTAINER_PORT}"
     volumes:
-      - ./app:/code/app
+      - ./app:/app
     ports:
-      - "${CONTAINER_PORT}:${CONTAINER_PORT}"
+      - "127.0.0.1:${CONTAINER_PORT}:${CONTAINER_PORT}"
+    restart: always
+    networks:
+      cv_backend:
+
+
+networks:
+  cv_backend:
+    name: cv_backend
