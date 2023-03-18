@@ -1,7 +1,12 @@
+import sys
+
 from django.conf import settings
 from django.db.models import Max
+from django import VERSION as DJANGO_VERSION
 
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
+from rest_framework import __version__ as rest_framework_version
+
 
 from cv.models import PersonalInfo, Email, PhoneNumber, DetailCategory, DetailItem, Picture, Employer, Employment, \
     EmploymentTask, Hobby, HobbyItem, ExternalLink
@@ -103,11 +108,12 @@ class PersonalInfoSerializer(ModelSerializer):
     employers = SerializerMethodField()
     hobbies = HobbySerializer(many=True)
     external_links = ExternalLinkSerializer(many=True)
+    versions = SerializerMethodField()
 
     class Meta:
         model = PersonalInfo
         fields = ["first_name", "last_name", "title", "emails", "phone_numbers", "detail_categories", "pictures",
-                  "employers", "hobbies", "external_links"]
+                  "employers", "hobbies", "external_links", "versions"]
 
     def get_employers(self, obj):
         # Annotation to remove duplicate row when ordering via foreign key
@@ -127,3 +133,11 @@ class PersonalInfoSerializer(ModelSerializer):
         for i in serializer.data:
             i["number"] = i["number"].translate(lol_crypt)
         return serializer.data
+
+    @staticmethod
+    def get_versions(_obj):
+        return {
+            "python": sys.version.split(" ")[0],
+            "django": '.'.join(map(str, list(DJANGO_VERSION[0:3]))),
+            "rest_framework": rest_framework_version
+        }
