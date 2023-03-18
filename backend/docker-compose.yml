@@ -2,7 +2,6 @@ version: '3.5'
 
 services:
   app:
-    container_name: cv_backend
     env_file:
       - .env
     build: .
@@ -13,9 +12,3 @@ services:
     ports:
       - "127.0.0.1:${CONTAINER_PORT}:${CONTAINER_PORT}"
     restart: always
-    networks:
-      - cv_backend
-
-networks:
-  cv_backend:
-    name: cv_backend
