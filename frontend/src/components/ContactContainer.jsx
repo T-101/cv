@@ -61,16 +61,19 @@ export default function LandingPageContainer() {
                     <Card.Body>
                         <Table>
                             <tbody>
-                            <tr>
-                                <td>
-                                    Backend
-                                </td>
-                                <td>
-                                    <a href="https://docs.python.org/3.9/">Python 3.10.0</a><br/>
-                                    <a href="https://docs.djangoproject.com/en/3.2/">Django 4.1.1</a><br/>
-                                    <a href="https://www.django-rest-framework.org/">Django Rest Framework 3.14.0</a>
-                                </td>
-                            </tr>
+                            {data &&
+                                <tr>
+                                    <td>
+                                        Backend
+                                    </td>
+                                    <td>
+                                        <a href="https://docs.python.org/">Python {data.versions.python}</a><br/>
+                                        <a href="https://docs.djangoproject.com/">Django {data.versions.django}</a><br/>
+                                        <a href="https://www.django-rest-framework.org/">
+                                            Django Rest Framework {data.versions.rest_framework}</a>
+                                    </td>
+                                </tr>
+                            }
                             <tr>
                                 <td>
                                     Frontend
