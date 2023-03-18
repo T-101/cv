@@ -1,15 +1,19 @@
-FROM python:alpine3.14
+FROM python:3.11-alpine3.17
+
 ENV PYTHONUNBUFFERED 1
+
+RUN mkdir /app
+WORKDIR /app/
+
+# to change this default, build using --build-arg timezone=Something/Else
+ARG timezone=Europe/Helsinki
+
 RUN apk update \
     && apk add gcc python3-dev musl-dev \
 	&& apk add nano tzdata bash \
     && apk add zlib-dev jpeg-dev
-RUN cp /usr/share/zoneinfo/Europe/Helsinki /etc/localtime
-RUN echo "Europe/Helsinki" > /etc/timezone
-RUN mkdir /code
-WORKDIR /code/app
-COPY app/requirements.txt /code/app/
-RUN pip install -r requirements.txt
-COPY . /code/
 
-CMD ["/bin/sh", "-c", "gunicorn config.wsgi --timeout 600 -w 2 -b 0.0.0.0:8000"]
+ENV TZ=${timezone}
+
+COPY app/requirements.txt /app/
+RUN pip install -r requirements.txt
