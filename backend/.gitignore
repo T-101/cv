@@ -1,9 +1,5 @@
-.idea/*
-.env
-db.sqlite3
-*.pyc
+media/
+static/
 *.json
-app/static/*
-app/media/*
-__pycache__/*
-docker-compose.override.yml
+db.sqlite3*
+.env
