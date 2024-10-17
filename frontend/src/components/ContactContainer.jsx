@@ -104,9 +104,9 @@ export default function LandingPageContainer() {
                                     Deployment
                                 </td>
                                 <td>
-                                    <a href="https://www.docker.com/">Docker 20.10.5</a><br/>
-                                    <a href="https://pypi.org/project/gunicorn/">gunicorn 20.1.0</a><br/>
-                                    <a href="https://nginx.org/">nginx 1.18.0</a>
+                                    <a href="https://www.docker.com/">Docker 27.0.3</a><br/>
+                                    <a href="https://pypi.org/project/gunicorn/">Gunicorn {data.versions.gunicorn}</a><br/>
+                                    <a href="https://nginx.org/">nginx 1.22.1</a>
                                 </td>
                             </tr>
                             <tr>
