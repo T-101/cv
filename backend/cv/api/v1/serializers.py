@@ -7,6 +7,8 @@ from django import VERSION as DJANGO_VERSION
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from rest_framework import __version__ as rest_framework_version
 
+from gunicorn import version_info as gunicorn_version
+
 
 from cv.models import PersonalInfo, Email, PhoneNumber, DetailCategory, DetailItem, Picture, Employer, Employment, \
     EmploymentTask, Hobby, HobbyItem, ExternalLink
@@ -139,5 +141,6 @@ class PersonalInfoSerializer(ModelSerializer):
         return {
             "python": sys.version.split(" ")[0],
             "django": '.'.join(map(str, list(DJANGO_VERSION[0:3]))),
-            "rest_framework": rest_framework_version
+            "rest_framework": rest_framework_version,
+            "gunicorn": '.'.join(map(str, list(gunicorn_version[0:3]))),
         }
