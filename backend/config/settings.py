@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
     'django_extensions',
     'rest_framework',
     'debug_toolbar',
@@ -68,7 +67,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -127,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = env.str("TIME_ZONE")
+TIME_ZONE = env.str("TZ")
 
 USE_I18N = True
 
@@ -149,8 +147,3 @@ MEDIA_ROOT = env.str("MEDIA_ROOT")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRYPTO = env.str("CRYPTO")
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
