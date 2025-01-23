@@ -407,29 +407,47 @@
 
                     <section id="portfolio">
 
-
-                        <div class="py-4 my-4 ">
+                        <div class="pt-4 mt-4 ">
                             <h1 class="fw-bold mt-5">Portfolio</h1>
                         </div>
 
+                        <p>Listing {{ info.portfolio_items.count }} projects.</p>
+
                         <hr class="mid-break my-2">
 
-
-                        <div class="py-4 my-4 ">
+                        <div class="pb-4 mb-4 ">
 
                             <div class="mb-5">
                                 <p>
                                     <button class="filter-button active mb-3" data-filter="*">All</button>
-                                    <button class="filter-button mb-3" data-filter=".branding">Branding</button>
+                                    <!-- <button class="filter-button mb-3" data-filter=".branding">Branding</button>
                                     <button class="filter-button mb-3" data-filter=".tshirt">T-shirt</button>
                                     <button class="filter-button mb-3" data-filter=".package">Package</button>
                                     <button class="filter-button mb-3" data-filter=".website">Website</button>
-                                    <button class="filter-button mb-3" data-filter=".poster">Poster</button>
+                                    <button class="filter-button mb-3" data-filter=".poster">Poster</button> -->
+                                    {% for tag in tags %}
+                                        <button class="filter-button mb-3"
+                                                data-filter=".it-{{ tag.slug }}">{{ tag.tag }}
+                                        </button>
+                                    {% endfor %}
                                 </p>
                             </div>
 
                             <div class="isotope-container">
-                                <div class="item website col-md-4">
+
+                                {% for item in info.portfolio_items.all %}
+                                    <div class="item {% for tag in item.tags.all %} it-{{ tag.slug }} {% endfor %} col-md-4 m-2"
+                                    style="min-height: 150px;">
+                                        <img class="portfolio-img" src="{{ item.get_primary_image.thumbnail.url }}"
+                                             alt="">
+                                        <div class="description">
+                                            <h4>{{ item.title }}</h4>
+                                            <small>{{ item.short_description|default_if_none:"" }}</small>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                                <!-- <div class="item website col-md-4">
 
 
                                     <a href="{% static 'images/Rectangle 49.png' %}" title="Boxed Water"
@@ -531,7 +549,7 @@
                                             <h4>Coffee Package</h4>
                                         </div>
                                     </a>
-                                </div>
+                                </div> -->
 
                             </div>
 
@@ -572,7 +590,7 @@
                     </section>
 
                     <section>
-                        <div class="mb-5">
+                        <div class="mb-5 pb-5">
                             <p class="copyright ">© Free HTML template by: <a href="https://templatesjungle.com/">
                                 <u>TemplatesJungle </u> </a></p>
                         </div>
