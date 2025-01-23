@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import Email, PhoneNumber, Picture, PersonalInfo, DetailCategory, DetailItem, Employer, Employment, \
-    EmploymentTask, Hobby, HobbyItem, ExternalLink
+    EmploymentTask, Hobby, HobbyItem, ExternalLink, PortfolioItem, PortfolioImage, PortfolioItemTag, PortfolioTechniques
 
 
 # InLines
@@ -15,6 +15,13 @@ class PhoneNumberInline(admin.TabularInline):
     model = PhoneNumber
     extra = 1
 
+
+class PortfolioImageInline(admin.TabularInline):
+    model = PortfolioImage
+    extra = 1
+
+
+# Admins
 
 @admin.register(Email)
 class EmailAdmin(admin.ModelAdmin):
@@ -95,3 +102,30 @@ class HobbyItemAdmin(admin.ModelAdmin):
 class ExternalLinkAdmin(admin.ModelAdmin):
     list_display = ['id', 'url', 'fa_class', 'title', 'sort_index']
     list_editable = ['sort_index']
+
+
+@admin.register(PortfolioItem)
+class PortfolioItemAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'visible']
+    list_filter = ['visible']
+    search_fields = ['title', 'description', "tags__tag", "techniques__technique"]
+    autocomplete_fields = ['tags', 'techniques']
+    inlines = [PortfolioImageInline]
+
+
+@admin.register(PortfolioImage)
+class PortfolioImageAdmin(admin.ModelAdmin):
+    list_display = ['id', 'image']
+    search_fields = ['item__title']
+
+
+@admin.register(PortfolioItemTag)
+class PortfolioItemTagAdmin(admin.ModelAdmin):
+    list_display = ['id', 'tag']
+    search_fields = ['tag']
+
+
+@admin.register(PortfolioTechniques)
+class PortfolioTechniquesAdmin(admin.ModelAdmin):
+    list_display = ['id', 'technique']
+    search_fields = ['technique']
