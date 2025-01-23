@@ -1,12 +1,8 @@
-FROM python:3.12.1-alpine3.19
+FROM python:3.13.1-alpine3.21
 
 ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app/
-
-# to change this default, build using --build-arg timezone=Something/Else
-ARG timezone=Europe/Helsinki
-ENV TZ=${timezone}
 
 RUN apk update \
     && apk add gcc python3-dev musl-dev \
