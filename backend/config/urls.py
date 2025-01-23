@@ -27,11 +27,9 @@ v1router.registry.extend(v1_cv_router.registry)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include(v1router.urls))
+    path('api/v1/', include(v1router.urls)),
+    path('', include('cv.urls')),
 ]
 
 if settings.DEBUG:
-    from django.conf.urls.static import static
-
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns.append(path('__debug__/', include('debug_toolbar.urls')))
