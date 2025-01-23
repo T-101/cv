@@ -5,6 +5,8 @@ from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from django.utils.crypto import get_random_string
 
+from cv.helpers import lol_crypt
+
 
 def upload_obfuscated_filename(instance, orig_filename):
     _filename, _ext = os.path.splitext(orig_filename)
@@ -26,10 +28,14 @@ class SingletonModel(models.Model):
     @classmethod
     def load(cls):
         prefetch_items = [
+            "employers",
+            "employers__employments",
+            "employers__employments__employment_tasks",
             "detail_categories",
             "detail_categories__detail_items",
             "hobbies",
             "hobbies__hobby_items",
+            "external_links"
         ]
         obj, created = cls.objects.prefetch_related(*prefetch_items).get_or_create(pk=1)
         return obj
@@ -43,6 +49,10 @@ class Email(models.Model):
     address = models.EmailField(max_length=255)
     user = models.ForeignKey('PersonalInfo', on_delete=models.CASCADE, related_name='emails')
 
+    @property
+    def obfuscated_address(self):
+        return self.address.translate(lol_crypt)
+
     def __str__(self):
         return self.address
 
@@ -52,6 +62,10 @@ class PhoneNumber(models.Model):
     number = models.CharField(max_length=32)
     fa_class = models.CharField(max_length=255, blank=True, null=True)
     user = models.ForeignKey('PersonalInfo', on_delete=models.CASCADE, related_name='phone_numbers')
+
+    @property
+    def obfuscated_number(self):
+        return self.number.translate(lol_crypt)
 
     def __str__(self):
         return f"{self.user}"
@@ -188,6 +202,7 @@ class HobbyItem(models.Model):
 class ExternalLink(models.Model):
     class Meta:
         ordering = ["sort_index"]
+
     user = models.ForeignKey('PersonalInfo', on_delete=models.CASCADE, related_name='external_links')
     url = models.URLField()
     fa_class = models.CharField(max_length=255, blank=True, null=True)
