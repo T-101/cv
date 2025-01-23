@@ -9,14 +9,9 @@ from rest_framework import __version__ as rest_framework_version
 
 from gunicorn import version_info as gunicorn_version
 
-
+from cv.helpers import lol_crypt
 from cv.models import PersonalInfo, Email, PhoneNumber, DetailCategory, DetailItem, Picture, Employer, Employment, \
     EmploymentTask, Hobby, HobbyItem, ExternalLink
-
-lol_crypt = str.maketrans(
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-@_.",
-    settings.CRYPTO
-)
 
 
 class EmailSerializer(ModelSerializer):
