@@ -208,7 +208,7 @@
                                 {% for item in info.portfolio_items.all %}
                                     <div class="col m-4 item {% for tag in item.tags.all %} it-{{ tag.slug }} {% endfor %}">
                                         <figure class="portfolio-style">
-                                            <a href="{{ item.title }}" class="image-link"
+                                            <a href="{% url 'cv:portfolio_item' item.slug %}" class="image-link"
                                                title="Lists & Notes">
                                                 <img src="{{ item.get_primary_image.thumbnail.url }}"
                                                      alt="{{ item.title }}"
