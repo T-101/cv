@@ -2,9 +2,9 @@ import random
 
 from django.conf import settings
 from django.db.models.functions import Lower
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 
-from cv.models import PersonalInfo, PortfolioItemTag
+from cv.models import PersonalInfo, PortfolioItemTag, PortfolioItem
 
 
 class LandingPageView(TemplateView):
@@ -23,3 +23,8 @@ class LandingPageView(TemplateView):
         ctx["crypto"] = self._get_crypto()
         ctx['char_set'] = settings.CHAR_SET
         return ctx
+
+
+class PortfolioItemView(DetailView):
+    template_name = 'cv/portfolio_item.html'
+    model = PortfolioItem
