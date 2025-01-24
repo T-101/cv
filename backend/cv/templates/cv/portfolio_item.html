@@ -1,0 +1,71 @@
+{% extends 'cv/base.html' %}
+
+{% block title %}
+    <title>{{ object }} | Portfolio</title>
+{% endblock %}
+
+{% block content %}
+    <nav class="navbar navbar-fixed-top bg-light mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" onclick="history.back();">
+                <i class="fa-solid fa-left-long me-1"></i>
+                Back to Portfolio</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ object.title|upper }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ object.short_description }}</h6>
+                        <p class="card-text">{{ object.description }}</p>
+                        {% if object.url %}
+                            <a href="{{ object.url }}" class="card-link">{{ object.url_type }}</a>
+                        {% endif %}
+                        {% if object.repository %}
+                            <a href="{{ object.repository }}" class="card-link">Repository</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+                            <div class="carousel-indicators">
+                                {% for image in object.images.all %}
+                                    <button type="button" data-bs-target="#demo"
+                                            data-bs-slide-to="{{ forloop.counter0 }}"
+                                            {% if forloop.counter0 == 0 %}class="active"{% endif %}></button>
+                                {% endfor %}
+                            </div>
+
+                            <div class="carousel-inner">
+                                {% for image in object.images.all %}
+                                    <div class="carousel-item{% if forloop.counter0 == 0 %} active{% endif %}">
+                                        <img src="{{ image.image.url }}" alt="Los Angeles" class="d-block"
+                                             style="width:100%">
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <button class="carousel-control-prev" type="button" data-bs-target="#demo"
+                                    data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#demo"
+                                    data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
