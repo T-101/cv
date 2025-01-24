@@ -146,4 +146,5 @@ MEDIA_ROOT = env.str("MEDIA_ROOT")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CHAR_SET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-@_."
 CRYPTO = env.str("CRYPTO")
