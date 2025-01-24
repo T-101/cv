@@ -1,32 +1,7 @@
-{% extends 'cv/base.html' %}{% load static %}
+{% extends 'cv/base.html' %}{% load static www_extras %}
 
 {% block title %}
     <title>CV</title>
-{% endblock %}
-
-{% block extrahead %}
-    <style>
-        .portfolio-style figcaption {
-            position: absolute;
-            bottom: -100px;
-            left: 0;
-            right: 0;
-            z-index: 3;
-            text-align: center;
-            background: #222;
-            color: #fff;
-            font-size: 0.8em;
-            letter-spacing: 0.3em;
-            padding: 15px;
-            text-transform: uppercase;
-            transition: bottom 0.3s ease-in-out;
-        }
-
-        .portfolio-style:hover figcaption {
-            bottom: 0;
-        }
-    </style>
-
 {% endblock %}
 
 {% block content %}
@@ -34,8 +9,7 @@
     <div class=" offcanvas-btn text-end m-3">
         <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
                 aria-controls="offcanvasRight">
-            <iconify-icon icon="ci:hamburger-lg"
-                          style="font-size: 30px;"></iconify-icon>
+            <i class="fa-solid fa-bars fa-lg"></i>
         </button>
     </div>
 
@@ -59,32 +33,32 @@
                     <li>
                         <a href="#home" class="nav-link active rounded-0" aria-current="page" data-bs-toggle="tooltip"
                            data-bs-placement="right" aria-label="Home" data-bs-original-title="Home">
-                            <iconify-icon icon="ic:round-home"></iconify-icon>
+                            <i class="fa-solid fa-house"></i>
 
                         </a>
                     </li>
                     <li>
                         <a href="#about" class="nav-link rounded-0" data-bs-toggle="tooltip" data-bs-placement="right"
                            aria-label="Dashboard" data-bs-original-title="Dashboard">
-                            <iconify-icon icon="ic:round-person"></iconify-icon>
+                            <i class="fa-solid fa-user"></i>
                         </a>
                     </li>
                     <li>
                         <a href="#resume" class="nav-link rounded-0" data-bs-toggle="tooltip" data-bs-placement="right"
                            aria-label="Orders" data-bs-original-title="Orders">
-                            <iconify-icon icon="ic:round-school"></iconify-icon>
+                            <i class="fa-solid fa-graduation-cap"></i>
                         </a>
                     </li>
                     <li>
                         <a href="#portfolio" class="nav-link rounded-0" data-bs-toggle="tooltip"
                            data-bs-placement="right" aria-label="Products" data-bs-original-title="Products">
-                            <iconify-icon icon="ic:round-business-center"></iconify-icon>
+                            <i class="fa-solid fa-building"></i>
                         </a>
                     </li>
                     <li>
                         <a href="#contact" class="nav-link rounded-0" data-bs-toggle="tooltip" data-bs-placement="right"
                            aria-label="Customers" data-bs-original-title="Customers">
-                            <iconify-icon icon="ic:round-phone"></iconify-icon>
+                            <i class="fa-solid fa-phone"></i>
                         </a>
                     </li>
                 </ul>
@@ -96,15 +70,14 @@
 
                     <section id="home" class="mt-0">
                         <div class=" py-lg-4 my-lg-4 text-center">
-                            <h1 class="fw-bold" data-name="{{ info.obfuscated_first_name }}">
-                                Hi I’m {{ info.obfuscated_first_name }}</h1>
+                            <h1 class="fw-bold">
+                                Hi I’m <span class="crypto">{{ info.first_name|lol_crypt:crypto }}</span>
+                            </h1>
                             <div class="col-lg-10 mx-auto">
-                                <p class="lead-paragraph mb-4">I'm a graphic designer, illustrator and webdesigner
-                                    creating
-                                    awesome and effective visual identities for companies.</p>
-                                <div class=" gap-2 d-sm-flex justify-content-sm-center">
+                                <p class="lead-paragraph mb-4">I'm a web developer.</p>
+                                <!-- <div class=" gap-2 d-sm-flex justify-content-sm-center">
                                     <button type="button" class="btn btn-primary btn-lg mt-3">HIRE ME</button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </section>
@@ -137,8 +110,8 @@
                                 <li><b>E-mail</b></li>
                                 <ul>
                                     {% for email in info.emails.all %}
-                                        <li data-obfuscated_address="email.obfuscated_address">
-                                            {{ email.obfuscated_address }}
+                                        <li>
+                                            <span class="crypto">{{ email.address|lol_crypt:crypto }}</span>
                                             {% if email.primary %}
                                                 <i class="fa-solid fa-circle-check fa-xs ms-1" title="Primary"></i>
                                             {% endif %}
@@ -148,8 +121,8 @@
                                 <li><b>Phone</b></li>
                                 <ul>
                                     {% for phone in info.phone_numbers.all %}
-                                        <li data-obfuscated-number="{{ phone.obfuscated_number }}">
-                                            {{ phone.obfuscated_number }}
+                                        <li>
+                                            <span class="crypto">{{ phone.number|lol_crypt:crypto }}</span>
                                             {% if phone.primary %}
                                                 <i class="fa-solid fa-circle-check fa-xs ms-1" title="Primary"></i>
                                             {% endif %}
@@ -159,229 +132,6 @@
                             </ul>
 
                         </div>
-
-                        <hr class="mid-break my-2">
-
-                        <div class=" py-4 my-4 ">
-                            <h2 class="fw-bold pt-4 pb-5">Services</h2>
-                            <div class="row row-cols-1 row-cols-sm-2 ">
-                                <div class="col d-flex align-items-start pb-5">
-                                    <img src="{% static 'images/browser page account.png' %}" alt="image">
-                                    <div>
-                                        <h4 class="fw-bold mb-0">Web Design</h4>
-                                        <p class="mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dapib
-                                            eu placerat.
-                                        </p>
-                                        <a href="services-single.html" class="icon-link text-black fs-6 mt-0">More
-                                            info</a>
-                                    </div>
-                                </div>
-                                <div class="col d-flex align-items-start pb-5">
-                                    <img src="{% static 'images/shipment upload.png' %}" alt="image">
-                                    <div>
-                                        <h4 class="fw-bold mb-0">Package Design</h4>
-                                        <p class="mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dapib
-                                            eu placerat.
-                                        </p>
-                                        <a href="services-single.html" class="icon-link text-black fs-6 mt-0">More
-                                            info</a>
-
-                                    </div>
-                                </div>
-                                <div class="col d-flex align-items-start pb-5">
-                                    <img src="{% static 'images/shirt plain.png' %}" alt="image">
-                                    <div>
-                                        <h4 class="fw-bold mb-0">T-Shirt Print Design</h4>
-                                        <p class="mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dapib
-                                            eu placerat.
-                                        </p>
-                                        <a href="services-single.html" class="icon-link text-black fs-6 mt-0">More
-                                            info</a>
-
-                                    </div>
-                                </div>
-                                <div class="col d-flex align-items-start pb-5">
-                                    <img src="{% static 'images/video game logo companion cube.png' %}" alt="image">
-                                    <div>
-                                        <h4 class="fw-bold mb-0">Branding Design</h4>
-                                        <p class="mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dapib
-                                            eu placerat.
-                                        </p>
-                                        <a href="services-single.html" class="icon-link text-black fs-6 mt-0">More
-                                            info</a>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <hr class="mid-break my-2">
-
-                        <div class=" py-4 my-5 ">
-                            <h2 class="fw-bold pb-4">Testimonials</h2>
-
-                            <div class="swiper testimonial-swiper">
-                                <div class="swiper-wrapper">
-
-                                    <div class="swiper-slide">
-                                        <div class="card testimonials-inner">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <img class="testimonial-image"
-                                                             src="{% static 'images/quote.png' %}" alt="image">
-                                                    </div>
-                                                    <div class="col-md-10 mt-5">
-                                                        <p class="card-text mb-2">“Lorem ipsum dolor sit amet, consecte
-                                                            adipiscing elit. Dapib eu placerat at nisl posuere aliquet
-                                                            amet
-                                                            pharetra.”
-                                                        </p>
-                                                        <div class="testimonial-details">
-                                                            <h4 class="name fw-bold m-0">Lynda Watson</h4>
-                                                            <p class="testimonial-location">Jacobin</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="card testimonials-inner">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <img class="testimonial-image"
-                                                             src="{% static 'images/quote.png' %}" alt="image">
-                                                    </div>
-                                                    <div class="col-md-10 mt-5">
-                                                        <p class="card-text mb-2">“Lorem ipsum dolor sit amet, consecte
-                                                            adipiscing elit. Dapib eu placerat at nisl posuere aliquet
-                                                            amet
-                                                            pharetra.”
-                                                        </p>
-                                                        <div class="testimonial-details">
-                                                            <h4 class="name fw-bold m-0">Lynda Watson</h4>
-                                                            <p class="testimonial-location">Jacobin</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="card testimonials-inner">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <img class="testimonial-image"
-                                                             src="{% static 'images/quote.png' %}" alt="image">
-                                                    </div>
-                                                    <div class="col-md-10 mt-5">
-                                                        <p class="card-text mb-2">“Lorem ipsum dolor sit amet, consecte
-                                                            adipiscing elit. Dapib eu placerat at nisl posuere aliquet
-                                                            amet
-                                                            pharetra.”
-                                                        </p>
-                                                        <div class="testimonial-details">
-                                                            <h4 class="name fw-bold m-0">Lynda Watson</h4>
-                                                            <p class="testimonial-location">Jacobin</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="card testimonials-inner">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <img class="testimonial-image"
-                                                             src="{% static 'images/quote.png' %}" alt="image">
-                                                    </div>
-                                                    <div class="col-md-10 mt-5">
-                                                        <p class="card-text mb-2">“Lorem ipsum dolor sit amet, consecte
-                                                            adipiscing elit. Dapib eu placerat at nisl posuere aliquet
-                                                            amet
-                                                            pharetra.”
-                                                        </p>
-                                                        <div class="testimonial-details">
-                                                            <h4 class="name fw-bold m-0">Lynda Watson</h4>
-                                                            <p class="testimonial-location">Jacobin</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="card testimonials-inner">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <img class="testimonial-image"
-                                                             src="{% static 'images/quote.png' %}" alt="image">
-                                                    </div>
-                                                    <div class="col-md-10 mt-5">
-                                                        <p class="card-text mb-2">“Lorem ipsum dolor sit amet, consecte
-                                                            adipiscing elit. Dapib eu placerat at nisl posuere aliquet
-                                                            amet
-                                                            pharetra.”
-                                                        </p>
-                                                        <div class="testimonial-details">
-                                                            <h4 class="name fw-bold m-0">Lynda Watson</h4>
-                                                            <p class="testimonial-location">Jacobin</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="card testimonials-inner">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-2"><img class="testimonial-image"
-                                                                               src="{% static 'images/quote.png' %}"
-                                                                               alt="image"></div>
-                                                    <div class="col-md-10 mt-5">
-                                                        <p class="card-text mb-2">“Lorem ipsum dolor sit amet, consecte
-                                                            adipiscing elit. Dapib eu placerat at nisl posuere aliquet
-                                                            amet
-                                                            pharetra.”
-                                                        </p>
-                                                        <div class="testimonial-details">
-                                                            <h4 class="name fw-bold m-0">Lynda Watson</h4>
-                                                            <p class="testimonial-location">Jacobin</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <div class="swiper-pagination position-static"></div>
-                            </div>
-
-
-                        </div>
-
 
                     </section>
 
@@ -437,7 +187,7 @@
                             <h1 class="fw-bold mt-5">Portfolio</h1>
                         </div>
 
-                        <p>Listing {{ info.portfolio_items.count }} projects.</p>
+                        <p>Listing <span id="item-count">{{ info.portfolio_items.count }}</span> projects.</p>
 
                         <hr class="mid-break my-2">
 
@@ -446,11 +196,6 @@
                             <div class="mb-5">
                                 <p>
                                     <button class="filter-button active mb-3" data-filter="*">All</button>
-                                    <!-- <button class="filter-button mb-3" data-filter=".branding">Branding</button>
-                                    <button class="filter-button mb-3" data-filter=".tshirt">T-shirt</button>
-                                    <button class="filter-button mb-3" data-filter=".package">Package</button>
-                                    <button class="filter-button mb-3" data-filter=".website">Website</button>
-                                    <button class="filter-button mb-3" data-filter=".poster">Poster</button> -->
                                     {% for tag in tags %}
                                         <button class="filter-button mb-3"
                                                 data-filter=".it-{{ tag.slug }}">{{ tag.tag }}
@@ -460,21 +205,7 @@
                             </div>
 
                             <div class="isotope-container">
-
-                                {% comment %}                                {% for item in info.portfolio_items.all %}
-                                    <div class="item {% for tag in item.tags.all %} it-{{ tag.slug }} {% endfor %} col-md-4 m-2"
-                                         style="min-height: 150px;">
-                                        <img class="portfolio-img" src="{{ item.get_primary_image.thumbnail.url }}"
-                                             alt="">
-                                        <div class="description">
-                                            <h4>{{ item.title }}</h4>
-                                            <small>{{ item.short_description|default_if_none:"" }}</small>
-                                        </div>
-                                    </div>
-                                {% endfor %}{% endcomment %}
-
                                 {% for item in info.portfolio_items.all %}
-
                                     <div class="col m-4 item {% for tag in item.tags.all %} it-{{ tag.slug }} {% endfor %}">
                                         <figure class="portfolio-style">
                                             <a href="{{ item.title }}" class="image-link"
@@ -513,13 +244,13 @@
                                 <div class="col-md-4 contact-list mb-4">
                                     <p class="contact-paragraph">
                                         <i class="fa-solid fa-phone me-2"></i>
-                                        {{ info.phone_numbers.first.obfuscated_number }}
+                                        <span class="crypto">{{ info.phone_numbers.first.number|lol_crypt:crypto }}</span>
                                     </p>
                                 </div>
                                 <div class="col-md-4 contact-list mb-4">
                                     <p class="contact-paragraph">
                                         <i class="fa-solid fa-envelope me-2"></i>
-                                        {{ info.emails.first.obfuscated_address }}
+                                        <span class="crypto">{{ info.emails.first.address|lol_crypt:crypto }}</span>
                                     </p>
                                 </div>
                             </div>
@@ -544,4 +275,49 @@
 
         </div>
     </div>
+
+    <script>
+        document.querySelectorAll(".crypto").forEach(e => {
+            if (!e.classList.contains("crypto")) return
+            const input = "{{ crypto }}"
+            const output = "{{ char_set }}"
+            const index = x => input.indexOf(x)
+            const translate = x => index(x) > -1 ? output[index(x)] : x
+            const decrypted = e.textContent.split('').map(translate).join('')
+            e.classList.remove("crypto")
+            if (decrypted.includes('@')) {
+                e.innerHTML = `<a href="mailto:${decrypted}">${decrypted}</a>`
+            } else {
+                e.innerText = decrypted
+            }
+        })
+
+        window.addEventListener("load", (event) => {
+            const isotopeContainer = $('.isotope-container').isotope({
+                itemSelector: '.item',
+                layoutMode: 'masonry'
+            })
+
+            const filterButton = $('.filter-button')
+
+            filterButton.click(function () {
+                $('.filter-button').removeClass('active')
+                $(this).addClass('active')
+                const filterValue = $(this).attr('data-filter')
+                if (filterValue === '*') {
+                    isotopeContainer.isotope({filter: '*'})
+                } else {
+                    isotopeContainer.isotope({filter: filterValue})
+                }
+            })
+
+            isotopeContainer.on("arrangeComplete", function () {
+                const itemCount = Array.from(document.querySelectorAll(".item")).filter(e => e.style.display != "none").length
+                document.querySelector("#item-count").textContent = itemCount
+            })
+
+        })
+
+    </script>
+
 {% endblock %}
