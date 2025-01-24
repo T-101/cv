@@ -8,7 +8,7 @@
 <div class="col-7">
     <div class="data-info ">
         <p class="meta-date">{{ employment.date_start.year }} - {{ employment.date_end.year|default_if_none:"" }}
-            <img src="{% static 'images/Ellipse-7.png' %}" alt="image">
+            <img src="{% static 'images/ellipse.png' %}" alt="image">
             <a href="{{ employer.url }}" class="open-description">{{ employer }}</a>
             {% if employment.employment_status %}
                 <small>({{ employment.employment_status }})</small>
