@@ -10,7 +10,6 @@ from django.dispatch import receiver
 from django.utils.crypto import get_random_string
 from django_extensions.db.fields import AutoSlugField
 
-from cv.helpers import lol_crypt
 from PIL import Image
 
 
@@ -69,10 +68,6 @@ class Email(models.Model):
     address = models.EmailField(max_length=255)
     user = models.ForeignKey('PersonalInfo', on_delete=models.CASCADE, related_name='emails')
 
-    @property
-    def obfuscated_address(self):
-        return self.address.translate(lol_crypt)
-
     def __str__(self):
         return self.address
 
@@ -82,10 +77,6 @@ class PhoneNumber(models.Model):
     number = models.CharField(max_length=32)
     fa_class = models.CharField(max_length=255, blank=True, null=True)
     user = models.ForeignKey('PersonalInfo', on_delete=models.CASCADE, related_name='phone_numbers')
-
-    @property
-    def obfuscated_number(self):
-        return self.number.translate(lol_crypt)
 
     def __str__(self):
         return f"{self.user}"
@@ -133,16 +124,8 @@ class PersonalInfo(SingletonModel):
     title = models.CharField(max_length=255)
 
     @property
-    def obfuscated_first_name(self):
-        return self.first_name.translate(lol_crypt)
-
-    @property
-    def obfuscated_last_name(self):
-        return self.last_name.translate(lol_crypt)
-
-    @property
-    def obfuscated_full_name(self):
-        return f"{self.obfuscated_first_name} {self.obfuscated_last_name}"
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
