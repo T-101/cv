@@ -1,10 +1,11 @@
 import random
 
 from django.conf import settings
+from django.db.models import Prefetch
 from django.db.models.functions import Lower
 from django.views.generic import TemplateView, DetailView
 
-from cv.models import PersonalInfo, PortfolioItemTag, PortfolioItem
+from cv.models import PersonalInfo, PortfolioItemTag, PortfolioItem, PortfolioTechniques
 
 
 class LandingPageView(TemplateView):
@@ -28,3 +29,10 @@ class LandingPageView(TemplateView):
 class PortfolioItemView(DetailView):
     template_name = 'cv/portfolio_item.html'
     model = PortfolioItem
+
+    def get_queryset(self):
+        prefetches = [
+            "images",
+            Prefetch("techniques", queryset=PortfolioTechniques.objects.order_by("technique"))
+        ]
+        return PortfolioItem.objects.prefetch_related(*prefetches).filter(visible=True)
