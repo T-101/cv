@@ -206,16 +206,16 @@
 
                             <div class="isotope-container">
                                 {% for item in info.portfolio_items.all %}
-                                    <div class="col m-4 item {% for tag in item.tags.all %} it-{{ tag.slug }} {% endfor %}">
+                                    <div class="col m-2 item {% for tag in item.tags.all %} it-{{ tag.slug }} {% endfor %}">
                                         <figure class="portfolio-style">
                                             <a href="{% url 'cv:portfolio_item' item.slug %}" class="image-link"
                                                title="Lists & Notes">
                                                 <img src="{{ item.get_primary_image.thumbnail.url }}"
-                                                     alt="{{ item.title }}"
+                                                     alt="{{ item.title }}" style="width: 300px;"
                                                      class="img-fluid portfolio-item"></a>
                                             <figcaption>
                                                 <span>{{ item.title }}</span><br>
-                                                <small style="font-size:0.7em;">{{ item.short_description|default_if_none:"" }}</small>
+                                                <small style="font-size:0.6em;">{{ item.short_description|default_if_none:"" }}</small>
                                             </figcaption>
                                         </figure>
                                     </div>
@@ -232,7 +232,6 @@
 
                         <div class="py-4 my-4 ">
                             <h1 class="fw-bold mt-5">Contact</h1>
-                            <p>Wanna talk about project, please feel free to contact us.</p>
                         </div>
 
 
