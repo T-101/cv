@@ -132,6 +132,18 @@ class PersonalInfo(SingletonModel):
     last_name = models.CharField(max_length=255)
     title = models.CharField(max_length=255)
 
+    @property
+    def obfuscated_first_name(self):
+        return self.first_name.translate(lol_crypt)
+
+    @property
+    def obfuscated_last_name(self):
+        return self.last_name.translate(lol_crypt)
+
+    @property
+    def obfuscated_full_name(self):
+        return f"{self.obfuscated_first_name} {self.obfuscated_last_name}"
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
