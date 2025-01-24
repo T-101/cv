@@ -238,6 +238,7 @@ class PortfolioItem(models.Model):
 
     user = models.ForeignKey('PersonalInfo', on_delete=models.CASCADE, related_name='portfolio_items')
     title = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='title', overwrite=True)
     short_description = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     techniques = models.ManyToManyField('PortfolioTechniques', related_name='items', blank=True)
@@ -258,7 +259,7 @@ class PortfolioItem(models.Model):
 
 class PortfolioItemTag(models.Model):
     tag = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='tag')
+    slug = AutoSlugField(populate_from='tag', overwrite=True)
 
     def __str__(self):
         return self.tag
