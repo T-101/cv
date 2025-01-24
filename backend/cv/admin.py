@@ -111,6 +111,7 @@ class PortfolioItemAdmin(admin.ModelAdmin):
     search_fields = ['title', 'description', "tags__tag", "techniques__technique"]
     autocomplete_fields = ['tags', 'techniques']
     inlines = [PortfolioImageInline]
+    readonly_fields = ['slug']
 
 
 @admin.register(PortfolioImage)
