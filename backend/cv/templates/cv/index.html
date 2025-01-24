@@ -4,6 +4,31 @@
     <title>CV</title>
 {% endblock %}
 
+{% block extrahead %}
+    <style>
+        .portfolio-style figcaption {
+            position: absolute;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            z-index: 3;
+            text-align: center;
+            background: #222;
+            color: #fff;
+            font-size: 0.8em;
+            letter-spacing: 0.3em;
+            padding: 15px;
+            text-transform: uppercase;
+            transition: bottom 0.3s ease-in-out;
+        }
+
+        .portfolio-style:hover figcaption {
+            bottom: 0;
+        }
+    </style>
+
+{% endblock %}
+
 {% block content %}
 
     <div class=" offcanvas-btn text-end m-3">
@@ -71,7 +96,8 @@
 
                     <section id="home" class="mt-0">
                         <div class=" py-lg-4 my-lg-4 text-center">
-                            <h1 class="fw-bold">Hi I’m {{ info.first_name }}</h1>
+                            <h1 class="fw-bold" data-name="{{ info.obfuscated_first_name }}">
+                                Hi I’m {{ info.obfuscated_first_name }}</h1>
                             <div class="col-lg-10 mx-auto">
                                 <p class="lead-paragraph mb-4">I'm a graphic designer, illustrator and webdesigner
                                     creating
@@ -435,9 +461,9 @@
 
                             <div class="isotope-container">
 
-                                {% for item in info.portfolio_items.all %}
+                                {% comment %}                                {% for item in info.portfolio_items.all %}
                                     <div class="item {% for tag in item.tags.all %} it-{{ tag.slug }} {% endfor %} col-md-4 m-2"
-                                    style="min-height: 150px;">
+                                         style="min-height: 150px;">
                                         <img class="portfolio-img" src="{{ item.get_primary_image.thumbnail.url }}"
                                              alt="">
                                         <div class="description">
@@ -445,6 +471,24 @@
                                             <small>{{ item.short_description|default_if_none:"" }}</small>
                                         </div>
                                     </div>
+                                {% endfor %}{% endcomment %}
+
+                                {% for item in info.portfolio_items.all %}
+
+                                    <div class="col m-4 item {% for tag in item.tags.all %} it-{{ tag.slug }} {% endfor %}">
+                                        <figure class="portfolio-style">
+                                            <a href="{{ item.title }}" class="image-link"
+                                               title="Lists & Notes">
+                                                <img src="{{ item.get_primary_image.thumbnail.url }}"
+                                                     alt="{{ item.title }}"
+                                                     class="img-fluid portfolio-item"></a>
+                                            <figcaption>
+                                                <span>{{ item.title }}</span><br>
+                                                <small style="font-size:0.7em;">{{ item.short_description|default_if_none:"" }}</small>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+
                                 {% endfor %}
 
                             </div>
@@ -479,7 +523,7 @@
                                     </p>
                                 </div>
                             </div>
-                            
+
                         </div>
 
                     </section>

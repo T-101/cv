@@ -3,9 +3,9 @@
 
         <div>
             <img src="{% static 'images/ana_sq.webp' %}" class="hero-img mb-4 rounded-circle"
-                 alt="Picture of {{ info.first_name }}" width="140" height="140" loading="lazy">
+                 alt="Picture of {{ info.obfuscated_first_name }}" width="140" height="140" loading="lazy">
 
-            <h2 class="fw-bold mt-3">{{ info }}</h2>
+            <h2 class="fw-bold mt-3">{{ info.obfuscated_full_name }}</h2>
             <p>Welcome to my CV and Portfolio.</p>
             <div class="social-icon my-3">
                 <p>
