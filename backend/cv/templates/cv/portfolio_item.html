@@ -10,10 +10,9 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const description = document.getElementById('description'),
-                back = document.getElementById('back')
+            const description = document.getElementById('description')
             description.innerHTML = marked.parse(description.innerHTML)
-            back.onclick = () => window.history.back()
+            document.getElementById('back').onclick = () => window.history.back()
         })
     </script>
 {% endblock %}
