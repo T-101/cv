@@ -4,6 +4,18 @@
     <title>{{ object }} | Portfolio</title>
 {% endblock %}
 
+{% block extrahead %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.3/marked.min.js"
+            integrity="sha512-7aRjMGJX+VgTMGWgWLpQxavdTKRc2LwCTAS4LmB7OLwGTpH84ehHQoAY/y1fUfprr2yMFC6toDLHpbGaDth9VQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const description = document.getElementById('description')
+            description.innerHTML = marked.parse(description.innerHTML)
+        })
+    </script>
+{% endblock %}
+
 {% block content %}
     <nav class="navbar sticky-top bg-light mb-4">
         <div class="container-fluid">
@@ -19,7 +31,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ object.title|upper }}</h5>
                         <h6 class="card-subtitle mb-2 text-body-secondary">{{ object.short_description }}</h6>
-                        <p class="card-text">{{ object.description|linebreaks }}</p>
+                        <p id="description" class="card-text">{{ object.description }}</p>
                         <p class="card-text">
                             {% for tech in object.techniques.all %}
                                 <span class="badge rounded-pill text-bg-secondary">{{ tech }}</span>
@@ -51,8 +63,8 @@
                             <div class="carousel-inner">
                                 {% for image in object.images.all %}
                                     <div class="carousel-item{% if forloop.counter0 == 0 %} active{% endif %}">
-                                        <img src="{{ image.image.url }}" alt="Los Angeles" class="d-block"
-                                             style="width:100%">
+                                        <img src="{{ image.image.url }}" alt="Screenshot of {{ object.title }}"
+                                             class="d-block" style="width:100%">
                                     </div>
                                 {% endfor %}
                             </div>
