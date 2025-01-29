@@ -10,8 +10,10 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const description = document.getElementById('description')
+            const description = document.getElementById('description'),
+                back = document.getElementById('back')
             description.innerHTML = marked.parse(description.innerHTML)
+            back.onclick = () => window.history.back()
         })
     </script>
 {% endblock %}
@@ -19,7 +21,7 @@
 {% block content %}
     <nav class="navbar sticky-top bg-light mb-4">
         <div class="container-fluid">
-            <a class="navbar-brand" onclick="history.back();">
+            <a id="back" class="navbar-brand">
                 <i class="fa-solid fa-left-long me-1"></i>
                 Back to Portfolio</a>
         </div>
