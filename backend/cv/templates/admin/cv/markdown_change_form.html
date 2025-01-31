@@ -1,0 +1,35 @@
+{% extends "admin/change_form.html" %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.6/marked.min.js"
+            integrity="sha512-rvRITpPeEKe4hV9M8XntuXX6nuohzqdR5O3W6nhjTLwkrx0ZgBQuaK4fv5DdOWzs2IaXsGt5h0+nyp9pEuoTXg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let description, descriptionPreview, renderer
+        document.addEventListener('DOMContentLoaded', function () {
+            description = document.getElementById('id_description')
+            descriptionPreview = document.getElementById('description_preview')
+            description.oninput = updatePreview
+            updatePreview()
+        })
+
+        updatePreview = () => {
+            descriptionPreview.innerHTML = marked.parse(description.value)
+        }
+    </script>
+    <style>
+        #description_preview {
+            border: darkslategray 1px solid;
+            padding: 10px;
+        }
+
+        #description_preview ul {
+            margin-left: 10px;
+        }
+
+        #description_preview li {
+            list-style: unset;
+        }
+    </style>
+{% endblock %}

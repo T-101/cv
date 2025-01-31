@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 
 from .models import Email, PhoneNumber, Picture, PersonalInfo, DetailCategory, DetailItem, Employer, Employment, \
     EmploymentTask, Hobby, HobbyItem, ExternalLink, PortfolioItem, PortfolioImage, PortfolioItemTag, PortfolioTechniques
@@ -106,12 +107,23 @@ class ExternalLinkAdmin(admin.ModelAdmin):
 
 @admin.register(PortfolioItem)
 class PortfolioItemAdmin(admin.ModelAdmin):
+    change_form_template = "admin/cv/markdown_change_form.html"
     list_display = ['id', 'title', 'visible']
     list_filter = ['visible']
     search_fields = ['title', 'description', "tags__tag", "techniques__technique"]
     autocomplete_fields = ['tags', 'techniques']
     inlines = [PortfolioImageInline]
-    readonly_fields = ['slug']
+    readonly_fields = ['slug', 'description_preview']
+
+    fieldsets = (
+        (None, {
+            'fields': ('user', 'title', 'short_description', 'description', 'description_preview',
+                       'techniques', 'tags', 'url', 'url_type', 'repository', 'visible', 'slug')
+        }),
+    )
+
+    def description_preview(self, obj):
+        return format_html("<div id='description_preview'</div>")
 
 
 @admin.register(PortfolioImage)
